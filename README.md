@@ -32,7 +32,7 @@ Commands will be relatively simple for initial tests.  There are 3 main options 
 Spirits in base version will all be animal spirits.  Animal spirits execute basic commands sequentially with no special actions.  Players will be limited by number of spirits they possess.  This will be equivalent to their deck, although they should have access to all of them.
 
 
-<h2>Requirements<h2>
+<h2>Requirements</h2>
 Here are some technical requirements to help guide the coding process.
 
 <h3>Required Scenes</h3>
@@ -55,3 +55,11 @@ Some other ideas tabled until a working version exists.
 - Blood mage using HP in place of mana
 - Anti-Magic user sumnmoning sphere to reduce enemy regen
 - Actual dungeon UI to select pathing
+
+<h2>References</h2>
+https://app.diagrams.net/
+https://github.com/Mekire/pygame-mutiscene-template-with-movie/tree/master/data/states
+https://python-forum.io/thread-336.html
+- Game logic pass
+- Rendering pass
+- Game state contains all the information about where/how to render everything
