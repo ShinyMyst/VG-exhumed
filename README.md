@@ -33,15 +33,20 @@ Spirits in base version will all be animal spirits.  Animal spirits execute basi
 
 
 <h2>Requirements</h2>
-Here are some technical requirements to help guide the coding process.
+Here are some requirements to help guide the coding process.
+
+<h3>Classes</h3>
+Basic layout stored in the class_outline.drawio
 
 <h3>Required Scenes</h3>
+Main Menu
+Options Menu
+Battle Scene
 
 <h3>Unit Types</h3>
-
-
-
-
+Skeleton - No attributes
+Zombie - Moves when other zombies/units move.
+Ghoul - Attacks when other ghouls/units attack.
 
 <h2>Additions</h2>
 Some other ideas tabled until a working version exists.
@@ -63,3 +68,24 @@ https://python-forum.io/thread-336.html
 - Game logic pass
 - Rendering pass
 - Game state contains all the information about where/how to render everything
+
+<h2>To-Do</h2>
+<h3>Framework Steps</h3>
+~~Test window in Linux Terminal~~
+Basic framework added
+Create starter scene (0 content required)
+Game window boots using starter scene
+
+Image folder with backgrounds/button images
+Image dictionary creation
+Game window boots with images dictionary created
+
+Add background to starter scene using dict
+Game window boots with background
+
+Create a button class
+Incorporate button into starter scene
+Window boots with button visible
+Button changes scenes
+
+More steps
