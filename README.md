@@ -1,19 +1,19 @@
 <h2>Basic Plan</h2>
 
 <h3>Description</h3>
-Player will take the role of a Necromancer meant to traverse a dungeon.  Battles will take place on a grid.  On either end, there are summoning circles.  Your player character stands on the far left, the enemy on the far right.  The goal is to summon minions to cross the grid and defeat the opposing enemy.  Initially, game will automatically transition between battles with no overworld.
+Player will take the role of a Necromancer meant to traverse a dungeon.  Battles will take place on a grid.  On either end, there are summoning circles.  Your player character stands on the far left, the enemy on the far right.  The goal is to summon minions to cross the grid and defeat the opposing enemy.  Initially, game will automatically transition between battles with no overworld.<br>
 
 <h3>Combat</h3>
-Combat is split into two phases that repeat.
-Magic Phase
-Minion Phase a 
-Minion Phase b
+Combat is split into two phases that repeat.<br>
+Magic Phase<br>
+Minion Phase a <br>
+Minion Phase b<br>
 
-In the magic phase, the player can adjust minions or summon new ones.  In the minion phase, minions will execute their commands.  Minions may have multiple sets of commands.  All minions execute their phase a commands first, then all phase b commands are executed, and so forth until no commands left.  If minion has no later commands, they do nothing.  If units make it all the way to other side of map, they can attack the enemy leader directly if nothing in front of them.
+In the magic phase, the player can adjust minions or summon new ones.  In the minion phase, minions will execute their commands.  Minions may have multiple sets of commands.  All minions execute their phase a commands first, then all phase b commands are executed, and so forth until no commands left.  If minion has no later commands, they do nothing.  If units make it all the way to other side of map, they can attack the enemy leader directly if nothing in front of them.<br>
 
-Moving into an enemy could trigger an attack of opportunity.
+Moving into an enemy could trigger an attack of opportunity.<br>
 
-(Potentially we could go line by line with everything all at once, but that would be harder for player to follow despite more flexibility.)
+(Potentially we could go line by line with everything all at once, but that would be harder for player to follow despite more flexibility.)<br>
 
 <h3>Magic</h3>
 Primary resource for player will be their mana pool.  Mana is used for casting spells in the mana phase and maintaining minions.  Each magic phase, players regain some mana (possibly an increasing amount as round number goes up).  Upkeep for units is subtracted.  Going over limit may force you to dismiss a minion.  Remaining mana can be used for spells.
@@ -33,59 +33,59 @@ Spirits in base version will all be animal spirits.  Animal spirits execute basi
 
 
 <h2>Requirements</h2>
-Here are some requirements to help guide the coding process.
+Here are some requirements to help guide the coding process.<br>
 
 <h3>Classes</h3>
-Basic layout stored in the class_outline.drawio
+Basic layout stored in the class_outline.drawio<br>
 
 <h3>Required Scenes</h3>
-Main Menu
-Options Menu
-Battle Scene
+Main Menu<br>
+Options Menu<br>
+Battle Scene<br>
 
 <h3>Unit Types</h3>
-Skeleton - No attributes
-Zombie - Moves when other zombies/units move.
-Ghoul - Attacks when other ghouls/units attack.
+Skeleton - No attributes<br>
+Zombie - Moves when other zombies/units move.<br>
+Ghoul - Attacks when other ghouls/units attack.<br>
 
 <h2>Additions</h2>
-Some other ideas tabled until a working version exists.
+Some other ideas tabled until a working version exists.<br>
 
-- More complicated command sets 
-- Conditionals in the command sets
-- Additional abilities
-- Non-animal spirits
-- More vessel types
-- More player character types
-- Blood mage using HP in place of mana
-- Anti-Magic user sumnmoning sphere to reduce enemy regen
-- Actual dungeon UI to select pathing
+- More complicated command sets <br>
+- Conditionals in the command sets<br>
+- Additional abilities<br>
+- Non-animal spirits<br>
+- More vessel types<br>
+- More player character types<br>
+- Blood mage using HP in place of mana<br>
+- Anti-Magic user sumnmoning sphere to reduce enemy regen<br>
+- Actual dungeon UI to select pathing<br>
 
 <h2>References</h2>
-https://app.diagrams.net/
-https://github.com/Mekire/pygame-mutiscene-template-with-movie/tree/master/data/states
-https://python-forum.io/thread-336.html
-- Game logic pass
-- Rendering pass
-- Game state contains all the information about where/how to render everything
+https://app.diagrams.net/<br>
+https://github.com/Mekire/pygame-mutiscene-template-with-movie/tree/master/data/states<br>
+https://python-forum.io/thread-336.html<br>
+- Game logic pass<br>
+- Rendering pass<br>
+- Game state contains all the information about where/how to render everything<br>
 
 <h2>To-Do</h2>
 <h3>Framework Steps</h3>
-~~Test window in Linux Terminal~~
-Basic framework added
-Create starter scene (0 content required)
-Game window boots using starter scene
+~~Test window in Linux Terminal~~<br>
+Basic framework added<br>
+Create starter scene (0 content required)<br>
+Game window boots using starter scene<br>
 
-Image folder with backgrounds/button images
-Image dictionary creation
-Game window boots with images dictionary created
+Image folder with backgrounds/button images<br>
+Image dictionary creation<br>
+Game window boots with images dictionary created<br>
 
-Add background to starter scene using dict
-Game window boots with background
+Add background to starter scene using dict<br>
+Game window boots with background<br>
 
-Create a button class
-Incorporate button into starter scene
-Window boots with button visible
-Button changes scenes
+Create a button class<br>
+Incorporate button into starter scene<br>
+Window boots with button visible<br>
+Button changes scenes<br>
 
-More steps
+More steps<br>
