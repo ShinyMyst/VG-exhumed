@@ -1,10 +1,12 @@
 ######################
 # Loaders
-#
 ######################
+"""
+Creates and formats images and other assets used by pygame.
+"""
 
 import os
-# import pygame
+import pygame as pg
 
 
 def load_graphics(directory):
@@ -12,8 +14,10 @@ def load_graphics(directory):
     Key == file name - extension.  File == formatted pygame img."""
     gfx_dict = dict()
     for file in os.listdir(directory):
-        print(file)
-        gfx_dict[file.split(".")[0]] = file
+        file_name, ext = os.path.split(file)
+        image = pg.image.load(os.path.join(directory, file))
+        image = format_image(image)
+        gfx_dict[file_name] = image
 
     return gfx_dict
 
@@ -28,9 +32,6 @@ def format_image(image):
     return image
 
 
-
-
-
 # Add color to color key
 # Encapsulate so Pygame does not need imported/initialized in this folder
-# Add a unit test to ensure files can be loaded properly.
+# Verify image extension type
