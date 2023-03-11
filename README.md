@@ -71,7 +71,7 @@ https://python-forum.io/thread-336.html<br>
 
 <h2>To-Do</h2>
 <h3>Framework Steps</h3>
-~~Test window in Linux Terminal~~<br>
+Test window in Linux Terminal<br>
 Basic framework added<br>
 Create starter scene (0 content required)<br>
 Game window boots using starter scene<br>
