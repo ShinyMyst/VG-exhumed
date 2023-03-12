@@ -1,5 +1,7 @@
-from control import *
+from control import init_states
+
 
 def main():
-	pass
-	
+    state_dict = {
+        "placeholder": []}
+    init_states(state_dict, "placeholder")
