@@ -30,6 +30,16 @@ class TestLoaders(unittest.TestCase):
         self.background_list = os.listdir(self.background_dir)
         self.background_dict = load_graphics(self.background_dir)
 
+        # Buttons
+        self.button_dir = os.path.join(gfx_path, "buttons")
+        self.button_list = os.listdir(self.background_dir)
+        self.button_dict = load_graphics(self.background_dir)
+
+        # Units
+        self.unit_dir = os.path.join(gfx_path, "units")
+        self.unit_list = os.listdir(self.background_dir)
+        self.unit_dict = load_graphics(self.background_dir)
+
     def tearDown(self):
         pg.quit()
 
@@ -40,6 +50,24 @@ class TestLoaders(unittest.TestCase):
     def test_bg_file_type(self):
         """Background files correctly formatted"""
         for image in self.background_dict.values():
+            self.assertIsInstance(image, pg.Surface)
+
+    def test_button_dict_length(self):
+        """Button dctionary length == length of button directory."""
+        self.assertEqual(len(self.button_list), len(self.button_dict))
+
+    def test_button_file_type(self):
+        """Button files correctly formatted"""
+        for image in self.button_dict.values():
+            self.assertIsInstance(image, pg.Surface)
+
+    def test_unit_dict_length(self):
+        """Unit dctionary length == length of unit directory."""
+        self.assertEqual(len(self.unit_list), len(self.unit_dict))
+
+    def test_unit_file_type(self):
+        """Unit files correctly formatted"""
+        for image in self.unit_dict.values():
             self.assertIsInstance(image, pg.Surface)
 
 
