@@ -9,13 +9,13 @@ import os
 from loaders import load_graphics
 
 # Default Settings
-screen_size = 1000, 500
+SIZE = 1000, 500
 caption = "Exhumed"
 
 # Initialize Pygame
 pg.init()
 pg.display.set_caption(caption)
-SCREEN = pg.display.set_mode(screen_size)
+SCREEN = pg.display.set_mode(SIZE)
 
 
 # Resource Directories

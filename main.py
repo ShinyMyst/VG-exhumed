@@ -1,7 +1,14 @@
-from control import init_states
+from control import Control
+from display import Display
+from data import SCREEN
 
 
 def main():
-    state_dict = {
-        "placeholder": []}
-    init_states(state_dict, "placeholder")
+    display = Display(SCREEN)
+    control = Control()
+    display.set_display(*control.get_gfx())
+
+    display.render_screen()
+
+
+main()
