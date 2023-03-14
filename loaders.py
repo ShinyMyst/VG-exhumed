@@ -14,7 +14,7 @@ def load_graphics(directory):
     Key == file name - extension.  File == formatted pygame img."""
     gfx_dict = dict()
     for file in os.listdir(directory):
-        file_name, ext = os.path.split(file)
+        file_name, ext = os.path.splitext(file)
         image = pg.image.load(os.path.join(directory, file))
         image = format_image(image)
         gfx_dict[file_name] = image
@@ -22,7 +22,7 @@ def load_graphics(directory):
     return gfx_dict
 
 
-def format_image(image):
+def format_image(image: pg.surface):
     """Formats a given image to work within PyGame."""
     if image.get_alpha():
         image = image.convert_alpha()
@@ -33,5 +33,4 @@ def format_image(image):
 
 
 # Add color to color key
-# Encapsulate so Pygame does not need imported/initialized in this folder
 # Verify image extension type
