@@ -5,6 +5,7 @@
 Renders sprites and backgrounds to the screen.
 """
 import pygame as pg
+from data import SIZE
 
 class Display():
     def __init__(self, screen):
@@ -13,7 +14,8 @@ class Display():
         self.sprites = None
 
     def set_bg(self, background: pg.Surface):
-        self.background = background
+        """Resizes and assigns background."""
+        self.background = pg.transform.scale(background, SIZE)
         self.screen.blit(self.background, (0,0))
         pg.display.flip()
 
@@ -29,3 +31,5 @@ class Display():
         self.screen.blit(self.background, (0,0))
         self.sprites.draw(self.screen)
         pg.display.flip()
+
+# If backgrounds become more intensive than a single image, may need to do transformation elsewhere.
