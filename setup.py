@@ -16,6 +16,7 @@ caption = "Exhumed"
 pg.init()
 pg.display.set_caption(caption)
 SCREEN = pg.display.set_mode(SIZE)
+CLOCK = pg.time.Clock()
 
 
 # Resource Directories
