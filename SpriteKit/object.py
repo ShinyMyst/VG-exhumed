@@ -29,7 +29,6 @@ class _StaticObject(pg.sprite.Sprite):
     def get_size(self):
         return self.size_x, self.size_y
 
-
     def update(self, mouse_pos:pg.mouse):
         """Overwritten in children classes to perform actions."""
         pass
@@ -68,15 +67,14 @@ class Button(_StaticObject):
     def update_appearence(self):
         """Change how sprite looks based on its current status."""
         if self._is_hovered:
-            self.displayed_image = self.image_active
+            self.image = self.image_active
         else:
-            self.displayed_image = self.image_base
+            self.image = self.image_base
 
 
     def update(self, mouse_pos:pg.mouse):
         """Updates sprites appearance on screen."""
         self.check_collision(mouse_pos)
-        print(self._is_hovered)
         self.update_appearence()
 
 # Needs some refactoring

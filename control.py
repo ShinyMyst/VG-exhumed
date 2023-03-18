@@ -22,7 +22,6 @@ class Control():
     def event_loop(self):
         mouse_pos = pg.mouse.get_pos()
         self.state_sprites.update(mouse_pos)
-        print("EVENT")
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit(); sys.exit()
