@@ -26,7 +26,8 @@ class Control():
             if event.type == pg.QUIT:
                 pg.quit(); sys.exit()
             if event.type == pg.MOUSEBUTTONDOWN:
-                pass
+                for sprite in self.state_sprites:
+                    sprite.click()
 
     def get_gfx(self):
         """Returns the background and sprite group for current state"""

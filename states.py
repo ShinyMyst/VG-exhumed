@@ -20,10 +20,12 @@ class _State:
         return self._sprite_group
 
 ### Beyond this point is a seperate main menu state file in future ###
+def test_function():
+    print("Hello world!")
 
 start_button = Button(GFX['buttons']['start'], (200, 100))
 start_button.set_pos((50, 50))
-start_button.set_function(None)
+start_button.set_function(test_function)
 main_menu_group = [
     start_button
 ]

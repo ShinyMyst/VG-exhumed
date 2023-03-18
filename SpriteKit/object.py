@@ -30,7 +30,11 @@ class _StaticObject(pg.sprite.Sprite):
         return self.size_x, self.size_y
 
     def update(self, mouse_pos:pg.mouse):
-        """Overwritten in children classes to perform actions."""
+        """Overwritten in children classes to track mouse position."""
+        pass
+
+    def click(self):
+        """Overwritten in children classes to perform action when clicked."""
         pass
 
 class Button(_StaticObject):
@@ -76,6 +80,11 @@ class Button(_StaticObject):
         """Updates sprites appearance on screen."""
         self.check_collision(mouse_pos)
         self.update_appearence()
+
+    def click(self):
+        """Perform function when clicked if sprite is currently hovered."""
+        if self._is_hovered:
+            self.function()
 
 # Needs some refactoring
 # self.image is a name used by pg and can't be changed

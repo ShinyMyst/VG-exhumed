@@ -1,6 +1,6 @@
 from control import Control
 from display import Display
-from data import SCREEN, fps, CLOCK
+from data import SCREEN, fps, clock
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
     while True:
         control.event_loop()
         display.render_screen()
-        CLOCK.tick(fps)
+        clock.tick(fps)
 
 
 

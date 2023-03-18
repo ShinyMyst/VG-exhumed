@@ -9,7 +9,7 @@ import setup
 SCREEN = setup.SCREEN
 GFX = setup.GFX
 SIZE = setup.SIZE
-CLOCK = setup.CLOCK
+clock = setup.clock
 fps = 60
 
 # Find a way to write SIZE here and pass to setup isntead of otherway around
