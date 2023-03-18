@@ -5,20 +5,29 @@
 ...
 """
 from states import STATES
+import pygame as pg
+import sys
 
 class Control():
     def __init__(self):
         self.state_dict = STATES
-        self.current_state = self.state_dict['start']
+        self.current_state = None
+        self.state_sprites = None
 
-    def init_states(self, state_dict: dict, start_state: str):
-        """Saves the completed state dict and saves the current state"""
-        self.state_dict = state_dict
-        self.current_state = self.state_dict[start_state]
+
+    def set_state(self, state:str):
+        self.current_state = self.state_dict[state]
+        self.state_sprites = self.current_state.get_sprite_group()
 
     def event_loop(self):
-        while True:
-            pass
+        mouse_pos = pg.mouse.get_pos()
+        self.state_sprites.update(mouse_pos)
+        print("EVENT")
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit(); sys.exit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                pass
 
     def get_gfx(self):
         """Returns the background and sprite group for current state"""

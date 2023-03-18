@@ -16,8 +16,6 @@ class _StaticObject(pg.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         self.size_x, self.size_y = size
-        #self.rect.x = None
-        #self.rect.y = None
 
     #####################################
     # Getters/Setters
@@ -31,6 +29,10 @@ class _StaticObject(pg.sprite.Sprite):
     def get_size(self):
         return self.size_x, self.size_y
 
+
+    def update(self, mouse_pos:pg.mouse):
+        """Overwritten in children classes to perform actions."""
+        pass
 
 class Button(_StaticObject):
     """Clickable object."""
@@ -74,7 +76,9 @@ class Button(_StaticObject):
     def update(self, mouse_pos:pg.mouse):
         """Updates sprites appearance on screen."""
         self.check_collision(mouse_pos)
+        print(self._is_hovered)
         self.update_appearence()
 
 # Needs some refactoring
 # self.image is a name used by pg and can't be changed
+# Change update to set mouse pos ?
