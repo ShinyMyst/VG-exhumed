@@ -16,6 +16,7 @@ class Control():
 
 
     def set_state(self, state:str):
+        print("SET STATE")
         self.current_state = self.state_dict[state]
         self.state_sprites = self.current_state.get_sprite_group()
 
@@ -28,9 +29,16 @@ class Control():
             if event.type == pg.MOUSEBUTTONDOWN:
                 for sprite in self.state_sprites:
                     sprite.click()
+        # Change state if applicable
+        if self.current_state.get_target_state():
+            self.set_state(self.current_state.get_target_state())
+            self.current_state.set_target_state(None)
 
     def get_gfx(self):
         """Returns the background and sprite group for current state"""
         background = self.current_state.get_bg()
         sprites = self.current_state.get_sprite_group()
         return background, sprites
+
+
+control = Control()
