@@ -4,9 +4,13 @@
 """
 ...
 """
-from states import STATES
 import pygame as pg
 import sys
+from States.start import StartMenu
+
+STATES = {
+    "start": StartMenu()
+}
 
 class Control():
     def __init__(self):

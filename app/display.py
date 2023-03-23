@@ -32,4 +32,5 @@ class Display():
         self.sprites.draw(self.screen)
         pg.display.flip()
 
+
 # If backgrounds become more intensive than a single image, may need to do transformation elsewhere.

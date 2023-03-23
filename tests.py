@@ -11,7 +11,7 @@ import unittest
 # Third-pary Imports
 import pygame as pg
 # Local Imports
-from loaders import load_graphics
+from app.loaders import load_graphics
 
 
 class TestLoaders(unittest.TestCase):
