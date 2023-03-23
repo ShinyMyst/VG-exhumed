@@ -15,9 +15,10 @@ def main():
         CLOCK.tick(FPS)
 
 
+if __name__ == '__main__':
+    main()
 
-main()
-
-
+# TODO:
 # Need more tests
-# Reorganize this file
+# Code 'start' somewhere else so init values all in one place
+# setup should also pull from that somewhere for screen size info
