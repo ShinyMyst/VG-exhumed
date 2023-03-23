@@ -1,6 +1,6 @@
 from data import GFX, SCREEN
-from States.states import _State
-from SpriteKit.object import Button
+from states.states import _State
+from objects.object import Button
 import pygame as pg
 
 
@@ -23,7 +23,7 @@ main_menu_group = [
 main_menu_sprites = pg.sprite.RenderUpdates()
 main_menu_sprites.add(start_button)
 
-class StartMenu(_State):
+class Start(_State):
     def __init__(self):
         super().__init__()
         self._bg = GFX['backgrounds']['back_cave']

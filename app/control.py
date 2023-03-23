@@ -6,10 +6,10 @@
 """
 import pygame as pg
 import sys
-from States.start import StartMenu
+from states.start import Start
 
 STATES = {
-    "start": StartMenu()
+    "start": Start()
 }
 
 class Control():
@@ -46,3 +46,5 @@ class Control():
 
 
 control = Control()
+
+# Remove

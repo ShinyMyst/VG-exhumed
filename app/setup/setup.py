@@ -6,7 +6,7 @@ Prepares the Pygame Application window and loads all required resources.
 """
 import pygame as pg
 import os
-from loaders import load_graphics
+from setup.loaders import load_graphics
 
 # Default Settings
 SIZE = 1000, 500
@@ -16,12 +16,13 @@ caption = "Exhumed"
 pg.init()
 pg.display.set_caption(caption)
 SCREEN = pg.display.set_mode(SIZE)
-clock = pg.time.Clock()
+CLOCK = pg.time.Clock()
 
 
 # Resource Directories
 current_dir = os.path.dirname(os.path.realpath(__file__))
-gfx_path = os.path.join(current_dir, "resources", "GFX")
+parent_dir = os.path.dirname(current_dir)
+gfx_path = os.path.join(parent_dir, "resources", "GFX")
 
 background_dir = os.path.join(gfx_path, "backgrounds")
 button_dir = os.path.join(gfx_path, "buttons")

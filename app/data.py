@@ -4,13 +4,14 @@
 """
 Stores various bits of information needed for game to function.
 """
-import setup
+import setup.setup as setup
+
 
 SCREEN = setup.SCREEN
 GFX = setup.GFX
 SIZE = setup.SIZE
-clock = setup.clock
-fps = 60
+CLOCK = setup.CLOCK
+FPS = 60
 
 
 # Find a way to write SIZE here and pass to setup isntead of otherway around
