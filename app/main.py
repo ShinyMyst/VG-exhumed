@@ -22,3 +22,13 @@ if __name__ == '__main__':
 # Need more tests
 # Code 'start' somewhere else so init values all in one place
 # setup should also pull from that somewhere for screen size info
+
+# TODO
+# Next project step:
+# Battle field
+# Enemy/ally commander
+# One unit on each side
+# Give commands - commands refresh when all are used
+# Whichever commander loses all HP loses.
+
+# Spells, summoning, mana, and other details next step

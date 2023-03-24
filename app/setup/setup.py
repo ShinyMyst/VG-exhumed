@@ -9,7 +9,7 @@ import os
 from setup.loaders import load_graphics
 
 # Default Settings
-SIZE = 1000, 500
+SIZE = 960, 540
 caption = "Exhumed"
 
 # Initialize Pygame
@@ -27,10 +27,14 @@ gfx_path = os.path.join(parent_dir, "resources", "GFX")
 background_dir = os.path.join(gfx_path, "backgrounds")
 button_dir = os.path.join(gfx_path, "buttons")
 unit_dir = os.path.join(gfx_path, "units")
+tile_dir = os.path.join(gfx_path, "tiles")
 
 # Create Resource Dictionaries
 GFX = {
     "backgrounds": load_graphics(background_dir),
     "buttons": load_graphics(button_dir),
-    "units": load_graphics(unit_dir)
+    "units": load_graphics(unit_dir),
+    "tiles": load_graphics(tile_dir)
 }
+
+# Window sizes 640×360, 960×540, and 1920×1080. 1280×720

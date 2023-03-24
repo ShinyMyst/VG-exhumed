@@ -45,7 +45,7 @@ class Control():
         next_state = self.current_state.next_state
         if self.current_state.next_state:
             self.set_state(next_state)
-            next_state = None
+            self.current_state.next_state = None
 
 # TODO:
 # Put state dict elsewhere
