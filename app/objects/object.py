@@ -88,7 +88,7 @@ class Button(_StaticObject):
 
     def click(self):
         """Perform function when clicked."""
-        if self._is_hovered:
+        if self._is_hovered and self.function:
             self.function()
 
 # TODO

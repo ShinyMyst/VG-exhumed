@@ -10,7 +10,7 @@ start_sprites = pg.sprite.RenderUpdates()
 # Create Sprites
 ##############
 start_button = Button(GFX['buttons']['start'], (200, 100))
-start_button.set_pos((50, 50))
+start_button.set_pos((0, 0))
 start_sprites.add(start_button)
 
 
