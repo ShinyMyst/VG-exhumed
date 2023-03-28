@@ -23,6 +23,10 @@ print("THIS IS RUNNING BEFORE USED")
 for sprite in grid_sprites:
     sprites.add(sprite)
 
+test_sprite = Button(GFX['units']['mage'], (35, 35))
+grid.set_sprite(test_sprite, (0, 0))
+sprites.add(test_sprite)
+
 
 class Battle(_State):
     def __init__(self):

@@ -2,6 +2,16 @@ import pygame as pg
 from objects import Button
 
 
+class GridSquare(Button):
+    def __init__(self, image: pg.Surface, size: tuple):
+        super().__init__(image, size)
+        self.contains = None
+
+    def set_contains(self, object):
+        """Determines what is in the square."""
+        self.contains = object
+
+
 class Grid():
     def __init__(self, tile_set, tile_size):
         self.grid = []
@@ -48,12 +58,18 @@ class Grid():
                 all_sprites.append(square)
         return all_sprites
 
-    def get_square(self, coords: tuple):
+    def get_square(self, grid_coords: tuple) -> GridSquare:
         """Returns square object based on its grid coords."""
-        column, row = coords
+        column, row = grid_coords
         return self.grid[row][column]
 
+    def set_sprite(self, sprite, grid_coords: tuple):
+        """Finds grid square based on its grid coords.
+        Positions sprite and associates it with the square."""
+        square = self.get_square(grid_coords)
+        square.set_contains(sprite)
+        screen_coords = square.get_coords()  # <--- Using top left of square
+        print(screen_coords)
+        sprite.set_pos(screen_coords)
 
-class GridSquare(Button):
-    def __init__(self, image: pg.Surface, size: tuple):
-        super().__init__(image, size)
+# Use middle of square

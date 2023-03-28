@@ -18,7 +18,7 @@ class _StaticObject(pg.sprite.Sprite):
         self.rect.x, self.rect.y = pos
 
     def get_coords(self):
-        return self.rect
+        return self.rect.x, self.rect.y
 
     def get_size(self):
         return self.size_x, self.size_y
