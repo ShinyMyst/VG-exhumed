@@ -22,10 +22,21 @@ grid_sprites = grid.get_sprites()
 print("THIS IS RUNNING BEFORE USED")
 for sprite in grid_sprites:
     sprites.add(sprite)
+# IDK which inputs are what next day (such as which is tile size)
+# Change this up for clarity
 
 test_sprite = Button(GFX['units']['mage'], (35, 35))
 grid.set_sprite(test_sprite, (0, 0))
 sprites.add(test_sprite)
+
+turtle = Button(GFX['spirits']['turtle'], (125, 150))
+turtle.set_pos((0, 250))
+sprites.add(turtle)
+
+
+bee = Button(GFX['spirits']['bee'], (125, 150))
+bee.set_pos((150, 250))
+sprites.add(bee)
 
 
 class Battle(_State):
@@ -41,3 +52,8 @@ class Battle(_State):
 
 # Sprite creation needs encapsulated so it doesn't run at start
 # Can also probably better design grid making functions (18-24)
+# This state needs remade multiple times.
+# Need a function/inputs page to feed into this for orgainzation
+# For example, file includes all sprite GFX and positions
+# This would become a single input on this page
+# Function would then split this up and call all the needed function to pos
