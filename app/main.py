@@ -6,7 +6,7 @@ from data import SCREEN, FPS, CLOCK
 def main():
     display = Display(SCREEN)
     control = Control()
-    control.set_state('start')
+    control.set_state('battle')
     display.set_display(*control.get_gfx())
 
     while True:

@@ -34,6 +34,10 @@ class _StaticObject(pg.sprite.Sprite):
         """Overwritten in children classes to perform action when clicked."""
         pass
 
+    def release(self):
+        """Overwritten in children classes to perform action when released."""
+        pass
+
 # TODO
 # Needs some refactoring
 # self.image is a name used by pg and can't be changed

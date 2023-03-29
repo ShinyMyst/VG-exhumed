@@ -1,7 +1,7 @@
 import pygame as pg
 from data import GFX
 from states.states import _State
-from objects import Button, Grid
+from objects import Button, Grid, Spirit
 
 # Sprite Group
 sprites = pg.sprite.RenderUpdates()
@@ -29,12 +29,12 @@ test_sprite = Button(GFX['units']['mage'], (35, 35))
 grid.set_sprite(test_sprite, (0, 0))
 sprites.add(test_sprite)
 
-turtle = Button(GFX['spirits']['turtle'], (125, 150))
+turtle = Spirit(GFX['spirits']['turtle'], (125, 150))
 turtle.set_pos((0, 250))
 sprites.add(turtle)
 
 
-bee = Button(GFX['spirits']['bee'], (125, 150))
+bee = Spirit(GFX['spirits']['bee'], (125, 150))
 bee.set_pos((150, 250))
 sprites.add(bee)
 
@@ -57,3 +57,6 @@ class Battle(_State):
 # For example, file includes all sprite GFX and positions
 # This would become a single input on this page
 # Function would then split this up and call all the needed function to pos
+
+# TODO
+# Refactor how objects inherit and function

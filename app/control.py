@@ -45,6 +45,9 @@ class Control():
             if event.type == pg.MOUSEBUTTONDOWN:
                 for sprite in self.state_sprites:
                     sprite.click()
+            if event.type == pg.MOUSEBUTTONUP:
+                for sprite in self.state_sprites:
+                    sprite.release()
 
         # Change states if next state is available
         next_state = self.current_state.next_state
