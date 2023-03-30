@@ -8,7 +8,9 @@ class Spirit(Button):
         super().__init__(image, size)
         self.anchor_x = None
         self.anchor_y = None
-        self.moving = True
+        self.moving = False
+        self.effect = None  # List of string commands.
+        # Refactor how effects saved/stored.
 
     def set_pos(self, pos):
         """Set the anchor position in addition to rect position."""
@@ -23,10 +25,10 @@ class Spirit(Button):
 
     def _update_appearence(self, mouse_pos):
         """Change appearnce if mouse is over sprite."""
+        if self.moving:
+            self.rect.x, self.rect.y = mouse_pos
         if self._is_hovered:
             self.image = self.image_active
-        elif self.moving:
-            self.rect.x, self.rect.y = mouse_pos
         else:
             self.image = self.image_base
 
@@ -35,12 +37,19 @@ class Spirit(Button):
         self.moving = False
         self.rect.x = self.anchor_x
         self.rect.y = self.anchor_y
+        return True
 
     def is_clicked(self):
         pass
         # Use a function like this to determine when sprite clicked
         # Instead of checking is hovered manually
 
+    def set_effect(self, effect):
+        self.effect = effect
+
+    def get_effect(self):
+        return self.effect
+    
     #####################
     # Control Functions
     #####################

@@ -15,6 +15,7 @@ class Control():
         self.state_dict = STATES
         self.current_state = None
         self.state_sprites = None
+        self.units = None
         self.change = False
 
     #####################
@@ -24,6 +25,7 @@ class Control():
         print("SET STATE")
         self.current_state = self.state_dict[state]
         self.state_sprites = self.current_state.get_sprite_group()
+        self.unit_sprites = self.current_state.get_unit_group()
         self.change = True
 
     def get_gfx(self):
@@ -36,9 +38,12 @@ class Control():
     #####################
     # Functions
     #####################
+    # Use multiple sprite lists based on which need to checked?
     def event_loop(self):
         mouse_pos = pg.mouse.get_pos()
         self.state_sprites.update(mouse_pos)
+        released_sprite = None
+        active_sprite = None
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit(); sys.exit()  # noqa
@@ -47,7 +52,19 @@ class Control():
                     sprite.click()
             if event.type == pg.MOUSEBUTTONUP:
                 for sprite in self.state_sprites:
-                    sprite.release()
+                    if sprite.release():
+                        released_sprite = sprite
+            for sprite in self.unit_sprites:
+                if sprite._is_hovered:
+                    active_sprite = sprite
+                    break
+                else:
+                    active_sprite = None
+            if active_sprite:
+                print("ACTIVE")
+                self.current_state.sprite_active(active_sprite)
+            if released_sprite:
+                self.current_state.sprite_released(released_sprite)
 
         # Change states if next state is available
         next_state = self.current_state.next_state
