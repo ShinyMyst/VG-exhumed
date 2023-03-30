@@ -28,13 +28,17 @@ background_dir = os.path.join(gfx_path, "backgrounds")
 button_dir = os.path.join(gfx_path, "buttons")
 unit_dir = os.path.join(gfx_path, "units")
 tile_dir = os.path.join(gfx_path, "tiles")
+spirit_dir = os.path.join(gfx_path, "spirits")
 
 # Create Resource Dictionaries
 GFX = {
     "backgrounds": load_graphics(background_dir),
     "buttons": load_graphics(button_dir),
     "units": load_graphics(unit_dir),
-    "tiles": load_graphics(tile_dir)
+    "tiles": load_graphics(tile_dir),
+    "spirits": load_graphics(spirit_dir)
 }
 
 # Window sizes 640×360, 960×540, and 1920×1080. 1280×720
+# Can probably un-hardcode the dict since key matches folder name
+# Fix path name calculation as well
