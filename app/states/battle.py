@@ -66,7 +66,7 @@ class Battle(_State):
             effects = released_sprite.effect
             for effect in effects:
                 if effect == 'move':
-                    grid.move_sprite(self.active_sprite, [0, 1])
+                    grid.move_sprite(self.active_sprite, [1, 0])
 
     def sprite_active(self, active_sprite):
         self.active_sprite = active_sprite

@@ -34,10 +34,12 @@ class Spirit(Button):
 
     def release(self):
         """Return object to its starting position when released."""
-        self.moving = False
-        self.rect.x = self.anchor_x
-        self.rect.y = self.anchor_y
-        return True
+        if self.moving is True:
+            self.moving = False
+            self.rect.x = self.anchor_x
+            self.rect.y = self.anchor_y
+            return True
+        return False
 
     def is_clicked(self):
         pass
@@ -49,7 +51,7 @@ class Spirit(Button):
 
     def get_effect(self):
         return self.effect
-    
+
     #####################
     # Control Functions
     #####################

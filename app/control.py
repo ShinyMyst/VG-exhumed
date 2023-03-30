@@ -51,9 +51,9 @@ class Control():
                 for sprite in self.state_sprites:
                     sprite.click()
             if event.type == pg.MOUSEBUTTONUP:
-                for sprite in self.state_sprites:
-                    if sprite.release():
-                        released_sprite = sprite
+                for spirit in self.state_sprites:
+                    if spirit.release():
+                        released_sprite = spirit
             for sprite in self.unit_sprites:
                 if sprite._is_hovered:
                     active_sprite = sprite
