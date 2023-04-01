@@ -1,13 +1,6 @@
 import pygame as pg
 import sys
-from states.start import Start
-from states.battle import Battle
-
-# Store this somewhere else
-STATES = {
-    "start": Start(),
-    "battle": Battle()
-}
+from states import STATES
 
 
 class Control():
