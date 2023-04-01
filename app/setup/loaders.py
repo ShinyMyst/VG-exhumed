@@ -1,10 +1,3 @@
-######################
-# Loaders
-######################
-"""
-Creates and formats images and other assets used by pygame.
-"""
-
 import os
 import pygame as pg
 
