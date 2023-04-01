@@ -58,6 +58,12 @@ class Battle(_State):
         self.released_sprite = None
         self.active_sprite = None
 
+        sprite_types = {
+            "Spirit": None,
+            "Button": None,
+            "Unit": None
+        }
+
     def test_function(self):
         self.next_state = "start"
 
@@ -74,7 +80,7 @@ class Battle(_State):
         if self.active_sprite:
             self.active_sprite.set_spirit(released_sprite)
 
-    def sprite_active(self, active_sprite):
+    def sprite_active(self, active_sprite): # Delete
         self.active_sprite = active_sprite
 
     def get_unit_group(self):
@@ -87,10 +93,33 @@ class Battle(_State):
                 actions = unit.execute_turn()
                 for action in actions:
                     if action == "move":
-                        grid.move_sprite(self.active_sprite, [1, 0])
+                        grid.move_sprite(unit, [1, 0])
             except: # noqa
                 pass
 
+    def add_sprite(sprite_type, position: tuple):
+        pass
+
+    def click(self):
+        for sprite in self._sprite_group:
+            sprite.click()
+
+    def release(self):
+        for sprite in self._sprite_group:
+            if sprite.release():
+                self.released_sprite = sprite
+
+    def active(self):
+        if self.released_sprite:
+            for sprite in self._unit_group:
+                if sprite._is_hovered:
+                    sprite.set_spirit(self.released_sprite)
+                    print("SET SPIRIT")
+            self.released_sprite = None
+
+
+# Where will the functions be added to buttons?
+# Where will the actions be added to spirits??
 
 # Sprite creation needs encapsulated so it doesn't run at start
 # Can also probably better design grid making functions (18-24)
@@ -102,3 +131,9 @@ class Battle(_State):
 
 # TODO
 # Refactor how objects inherit and function
+
+# STATE should only hold info about what is in current state.
+# Sprites should only hold info about what they hold and not execute logic
+# Grid should exist only to get grid cells and not logic in finding things
+
+# Seperate some of these state functions into the base class

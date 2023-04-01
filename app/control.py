@@ -28,6 +28,12 @@ class Control():
         self.change = False
         return background, sprites
 
+    def swap_states(self):
+        if self.current_state.next_state:
+            next_state = self.current_state.next_state
+            self.current_state.next_state = None
+            self.set_state(next_state)
+
     #####################
     # Functions
     #####################
@@ -35,35 +41,18 @@ class Control():
     def event_loop(self):
         mouse_pos = pg.mouse.get_pos()
         self.state_sprites.update(mouse_pos)
-        released_sprite = None
-        active_sprite = None
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit(); sys.exit()  # noqa
             if event.type == pg.MOUSEBUTTONDOWN:
-                for sprite in self.state_sprites:
-                    sprite.click()
-            if event.type == pg.MOUSEBUTTONUP:
-                for spirit in self.state_sprites:
-                    if spirit.release():
-                        released_sprite = spirit
-            for sprite in self.unit_sprites:
-                if sprite._is_hovered:
-                    active_sprite = sprite
-                    break
-                else:
-                    active_sprite = None
-            if active_sprite:
-                print("ACTIVE")
-                self.current_state.sprite_active(active_sprite)
-            if released_sprite:
-                self.current_state.sprite_released(released_sprite)
+                self.current_state.click()
 
-        # Change states if next state is available
-        next_state = self.current_state.next_state
-        if self.current_state.next_state:
-            self.set_state(next_state)
-            self.current_state.next_state = None
+            if event.type == pg.MOUSEBUTTONUP:
+                self.current_state.release()
+
+            self.current_state.active()
+            self.swap_states()
 
 # TODO:
 # Put state dict elsewhere

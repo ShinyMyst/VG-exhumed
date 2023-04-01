@@ -5,4 +5,4 @@ caption = "Exhumed"
 resource_folder = "resources"
 graphics_folder = "GFX"
 
-inital_scene = "battle"
+initial_scene = "battle"
