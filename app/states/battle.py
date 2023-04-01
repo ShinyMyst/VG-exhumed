@@ -15,6 +15,9 @@ start_button = Button(GFX['buttons']['start'], (200, 100))
 start_button.set_pos((0, 0))
 sprites.add(start_button)
 
+turn_button = Button(GFX['buttons']['start'], (200, 100))
+turn_button.set_pos((300, 300))
+sprites.add(turn_button)
 
 tiles = [GFX['tiles']['tile']]
 grid = Grid(tiles, (50, 50))
@@ -51,6 +54,7 @@ class Battle(_State):
         self._sprite_group = sprites
         self._unit_group = units
         start_button.set_function(self.test_function)
+        turn_button.set_function(self.process_turn)
         self.released_sprite = None
         self.active_sprite = None
 
@@ -59,20 +63,33 @@ class Battle(_State):
 
     def sprite_released(self, released_sprite):
         """Effect of a released sprite."""
-        print(released_sprite == turtle)
-        print("SPRITE IS", released_sprite, released_sprite.get_effect())
-
+        """
         if self.active_sprite:
             effects = released_sprite.effect
             for effect in effects:
                 if effect == 'move':
-                    grid.move_sprite(self.active_sprite, [1, 0])
+                    grid.move_sprite(self.active_sprite, [1, 0])"""
+
+        # If sprite is hovered when unit released, set spirit
+        if self.active_sprite:
+            self.active_sprite.set_spirit(released_sprite)
 
     def sprite_active(self, active_sprite):
         self.active_sprite = active_sprite
 
     def get_unit_group(self):
         return self._unit_group
+
+    def process_turn(self):
+        """Performs spirit actions and enemy phase."""
+        for unit in self._unit_group:
+            try:
+                actions = unit.execute_turn()
+                for action in actions:
+                    if action == "move":
+                        grid.move_sprite(self.active_sprite, [1, 0])
+            except: # noqa
+                pass
 
 
 # Sprite creation needs encapsulated so it doesn't run at start

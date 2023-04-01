@@ -7,6 +7,7 @@ class Unit(Button):
     def __init__(self, image: pg.Surface, size: tuple[int, int]):
         super().__init__(image, size)
         self.square = None
+        self.spirit = None
 
     def get_square(self):
         return self.square
@@ -17,3 +18,10 @@ class Unit(Button):
     def set_pos(self, pos):
         self.rect.x, self.rect.y = pos
         print(pos)
+
+    def set_spirit(self, spirit):
+        self.spirit = spirit
+
+    def execute_turn(self):
+        """Performs turn."""
+        return self.spirit.get_effect()
