@@ -37,3 +37,4 @@ class Display():
 # TODO:
 # Should display do sizing?
 # Sizing within states eliminates the need to import
+# Alternatively, set size as a BG arg OR a set size func

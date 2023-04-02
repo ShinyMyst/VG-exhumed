@@ -35,12 +35,12 @@ class Control():
             if event.type == pg.QUIT:
                 pg.quit(); sys.exit()  # noqa
             if event.type == pg.MOUSEBUTTONDOWN:
-                self.state.click()
+                self.state.get_event("click")
 
             if event.type == pg.MOUSEBUTTONUP:
-                self.state.release()
+                self.state.get_event("release")
 
-            self.state.active()
+            # self.state.active()
             self.swap_states()
 
     #####################
@@ -55,3 +55,5 @@ class Control():
         background = self.state.get_bg()
         sprites = self.state.get_sprites()
         return background, sprites
+
+# Refactor how event names are passed down

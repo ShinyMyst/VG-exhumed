@@ -1,8 +1,5 @@
-import pygame as pg
 from data import GFX
 from states.states import _State
-from objects import Button, Grid, Spirit, Unit
-
 
 ###############
 # Define Sprites
@@ -56,31 +53,84 @@ grid_input = {
     "position": [50, 50]}
 
 
+##############
+# Define State
+##############
 class Battle(_State):
     def __init__(self):
         super().__init__()
         self._bg = GFX['backgrounds']['floor']
-        self.released_sprite = None
-        self.active_sprite = None
+
+        self.logic = BattleLogic()
+
         self.function_dict = {
             "start": self.change_states,
-            "process_turn": self.process_turn
+            "process_turn": self.logic.process_turn
         }
         self.initialize_objects(sprite_input, grid_input)
+        self.logic.sync_sprites(self.buttons, self.spirits, self.units, self.all_sprites, self.grid)
 
     def change_states(self):
         self.target_state = "start"
 
-    def sprite_released(self, released_sprite):
-        # If sprite is hovered when unit released, set spirit
-        if self.active_sprite:
-            self.active_sprite.set_spirit(released_sprite)
 
-    def sprite_active(self, active_sprite):  # Delete
-        self.active_sprite = active_sprite
 
-    def get_unit_group(self):
-        return self.units
+    #####################
+    # Logic Functions
+    #####################
+    def get_event(self, event: str):
+        """Takes an event from control and processes through logic."""
+        self.logic.process_event(event)
+
+
+
+class BattleLogic:
+    def __init__(self):
+        self.buttons = None
+        self.spirits = None
+        self.units = None
+        self.all_sprites = None
+        self.grid = None
+
+        self.events = {
+            "click": self.click,
+            "release": self.release
+        }
+
+        self.released_sprite = None
+        self.active_sprite = None
+
+    def sync_sprites(self, buttons, spirits, units, all_sprites, grid):
+        self.buttons = buttons
+        self.spirits = spirits
+        self.units = units
+        self.all_sprites = all_sprites
+        self.grid = grid
+
+    def process_event(self, event_type):
+        action = self.events[event_type]
+        action()
+        self.active()
+
+    def click(self):
+        """Pass click to all clickable sprites"""
+        for button in self.buttons:
+            button.click()
+        for spirits in self.spirits:
+            spirits.click()
+
+    def release(self):
+        """Pass release to all sprites with release function"""
+        for spirit in self.spirits:
+            if spirit.release():
+                self.released_sprite = spirit
+
+    def active(self):
+        if self.released_sprite:
+            for sprite in self.units:
+                if sprite._is_hovered:
+                    sprite.set_spirit(self.released_sprite)
+            self.released_sprite = None
 
     def process_turn(self):
         """Performs spirit actions and enemy phase."""
@@ -93,43 +143,15 @@ class Battle(_State):
             except: # noqa
                 pass
 
-    def click(self):
-        for sprite in self.all_sprites:
-            sprite.click()
-
-    def release(self):
-        for sprite in self.all_sprites:
-            if sprite.release():
-                self.released_sprite = sprite
-
-    def active(self):
-        if self.released_sprite:
-            for sprite in self.units:
-                if sprite._is_hovered:
-                    sprite.set_spirit(self.released_sprite)
-                    print("SET SPIRIT")
-            self.released_sprite = None
-
-
-# Where will the functions be added to buttons?
-# Where will the actions be added to spirits??
-
-# Sprite creation needs encapsulated so it doesn't run at start
-# Can also probably better design grid making functions (18-24)
-# This state needs remade multiple times.
-# Need a function/inputs page to feed into this for orgainzation
-# For example, file includes all sprite GFX and positions
-# This would become a single input on this page
-# Function would then split this up and call all the needed function to pos
+    def sprite_released(self, released_sprite):
+        # If sprite is hovered when unit released, set spirit
+        if self.active_sprite:
+            self.active_sprite.set_spirit(released_sprite)
 
 # TODO
-# Refactor how objects inherit and function
-
 # STATE should only hold info about what is in current state.
 # Sprites should only hold info about what they hold and not execute logic
 # Grid should exist only to get grid cells and not logic in finding things
-
-# Seperate some of these state functions into the base class
 
 # Spirit functions should be defined elsewhere
 # Each type of spirit should have its own class w/spirit as parent.
@@ -137,3 +159,11 @@ class Battle(_State):
 
 # State still initiated at start.  Need a way to plug inputs via control
 # Perhaps add the input parameters in the state change variable?
+
+# BETTER SPRITE GROUP MANAGE
+# Object class for click and drag objects?
+
+# Implement logic module
+# Logic should handle events.  State holds sprites
+# Logic will execute commands on state.
+# So control should call logic?  Which in turn changes state?
