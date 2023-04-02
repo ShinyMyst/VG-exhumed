@@ -63,14 +63,12 @@ class Battle(_State):
         self.released_sprite = None
         self.active_sprite = None
         self.function_dict = {
-            "start": self.test_function,
+            "start": self.change_states,
             "process_turn": self.process_turn
         }
-        print("CALL")
         self.initialize_objects(sprite_input, grid_input)
-        print("END CALL")
 
-    def test_function(self):
+    def change_states(self):
         self.target_state = "start"
 
     def sprite_released(self, released_sprite):
@@ -82,11 +80,11 @@ class Battle(_State):
         self.active_sprite = active_sprite
 
     def get_unit_group(self):
-        return self._unit_group
+        return self.units
 
     def process_turn(self):
         """Performs spirit actions and enemy phase."""
-        for unit in self._unit_group:
+        for unit in self.units:
             try:
                 actions = unit.execute_turn()
                 for action in actions:
@@ -96,17 +94,17 @@ class Battle(_State):
                 pass
 
     def click(self):
-        for sprite in self._sprite_group:
+        for sprite in self.all_sprites:
             sprite.click()
 
     def release(self):
-        for sprite in self._sprite_group:
+        for sprite in self.all_sprites:
             if sprite.release():
                 self.released_sprite = sprite
 
     def active(self):
         if self.released_sprite:
-            for sprite in self._unit_group:
+            for sprite in self.units:
                 if sprite._is_hovered:
                     sprite.set_spirit(self.released_sprite)
                     print("SET SPIRIT")
@@ -136,3 +134,6 @@ class Battle(_State):
 # Spirit functions should be defined elsewhere
 # Each type of spirit should have its own class w/spirit as parent.
 # This removes need for setting effect
+
+# State still initiated at start.  Need a way to plug inputs via control
+# Perhaps add the input parameters in the state change variable?
