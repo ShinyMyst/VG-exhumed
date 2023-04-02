@@ -3,84 +3,82 @@ from data import GFX
 from states.states import _State
 from objects import Button, Grid, Spirit, Unit
 
-# Sprite Group
-sprites = pg.sprite.RenderUpdates()
-units = pg.sprite.RenderUpdates()  # Use a different sprite group type?
-
 
 ###############
-# Create Sprites
+# Define Sprites
 ##############
-start_button = Button(GFX['buttons']['start'], (200, 100))
-start_button.set_pos((0, 0))
-sprites.add(start_button)
+sprite_input = [
+    # Buttons
+    {
+        'type': 'buttons',
+        'img_name': 'start',
+        'size': (200, 100),
+        'position': (0, 0),
+        'function_name': 'start'},
 
-turn_button = Button(GFX['buttons']['start'], (200, 100))
-turn_button.set_pos((300, 300))
-sprites.add(turn_button)
+    {
+        'type': 'buttons',
+        'img_name': 'start',
+        'size': (200, 100),
+        'position': (300, 300),
+        'function_name': 'process_turn'},
 
-tiles = [GFX['tiles']['tile']]
-grid = Grid(tiles, (50, 50))
-grid.generate_grid((4, 3), [50, 50])
-grid_sprites = grid.get_sprites()
-print("THIS IS RUNNING BEFORE USED")
-for sprite in grid_sprites:
-    sprites.add(sprite)
-# IDK which inputs are what next day (such as which is tile size)
-# Change this up for clarity
+    # Spirits
+    {
+        'type': 'spirits',
+        'img_name': 'turtle',
+        'size': (125, 150),
+        'position': (0, 250),
+        'effect': "move"},
 
-test_sprite = Unit(GFX['units']['mage'], (35, 35))
-grid.set_sprite(test_sprite, (0, 0))
-sprites.add(test_sprite)
-units.add(test_sprite)
+    {
+        'type': 'spirits',
+        'img_name': 'bee',
+        'size': (125, 150),
+        'position': (300, 300),
+        'effect': None},
 
+    # Sprites on Grid
+    {
+        'type': 'units',
+        'img_name': 'mage',
+        'size': (35, 35),
+        'position': (0, 0)}
+]
 
-turtle = Spirit(GFX['spirits']['turtle'], (125, 150))
-turtle.set_pos((0, 250))
-turtle.set_effect(['move'])
-print("TURTLE", turtle.get_effect())
-sprites.add(turtle)
-
-bee = Spirit(GFX['spirits']['bee'], (125, 150))
-bee.set_pos((150, 250))
-sprites.add(bee)
+##############
+# Define Grid
+##############
+grid_input = {
+    "tile_set": [GFX['tiles']['tile']],
+    "tile_size": (50, 50),
+    "grid_dimensions": (4, 3),
+    "position": [50, 50]}
 
 
 class Battle(_State):
     def __init__(self):
         super().__init__()
         self._bg = GFX['backgrounds']['floor']
-        self.grid = grid
-        self._sprite_group = sprites
-        self._unit_group = units
-        start_button.set_function(self.test_function)
-        turn_button.set_function(self.process_turn)
         self.released_sprite = None
         self.active_sprite = None
-
-        sprite_types = {
-            "Spirit": None,
-            "Button": None,
-            "Unit": None
+        self.function_dict = {
+            "start": self.test_function,
+            "process_turn": self.process_turn
         }
+        print("CALL")
+        self.initialize_objects(sprite_input, grid_input)
+        print("END CALL")
 
     def test_function(self):
-        self.next_state = "start"
+        self.target_state = "start"
 
     def sprite_released(self, released_sprite):
-        """Effect of a released sprite."""
-        """
-        if self.active_sprite:
-            effects = released_sprite.effect
-            for effect in effects:
-                if effect == 'move':
-                    grid.move_sprite(self.active_sprite, [1, 0])"""
-
         # If sprite is hovered when unit released, set spirit
         if self.active_sprite:
             self.active_sprite.set_spirit(released_sprite)
 
-    def sprite_active(self, active_sprite): # Delete
+    def sprite_active(self, active_sprite):  # Delete
         self.active_sprite = active_sprite
 
     def get_unit_group(self):
@@ -93,12 +91,9 @@ class Battle(_State):
                 actions = unit.execute_turn()
                 for action in actions:
                     if action == "move":
-                        grid.move_sprite(unit, [1, 0])
+                        self.grid.move_sprite(unit, [1, 0])
             except: # noqa
                 pass
-
-    def add_sprite(sprite_type, position: tuple):
-        pass
 
     def click(self):
         for sprite in self._sprite_group:
@@ -137,3 +132,7 @@ class Battle(_State):
 # Grid should exist only to get grid cells and not logic in finding things
 
 # Seperate some of these state functions into the base class
+
+# Spirit functions should be defined elsewhere
+# Each type of spirit should have its own class w/spirit as parent.
+# This removes need for setting effect

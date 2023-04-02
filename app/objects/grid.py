@@ -57,7 +57,7 @@ class Grid():
 
         return row
 
-    def get_sprites(self):
+    def get_squares(self):
         """Returns a list of all sprites used to create the grid.
             Does not include sprites positioned on the grid."""
         all_sprites = []
@@ -94,3 +94,4 @@ class Grid():
 
 # Use middle of square
 # Validate that new coords are possible move
+# Squares do not need to be Button class.

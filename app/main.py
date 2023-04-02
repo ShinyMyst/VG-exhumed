@@ -11,7 +11,7 @@ def main():
 
     while True:
         control.event_loop()
-        if control.change:
+        if control.update_gfx:
             display.set_display(*control.get_gfx())
         display.render_screen()
         CLOCK.tick(FPS)
