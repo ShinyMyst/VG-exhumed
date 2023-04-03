@@ -80,16 +80,15 @@ class Grid():
         sprite.set_pos(screen_coords)
         sprite.set_square(square)
 
-    # This should be a logic function instead?
-    def move_sprite(self, sprite, move_coords: tuple):
+    def move_sprite(self, sprite, move_distance: tuple):
         # Empty original square & get its coords
         square = sprite.get_square()
         square.set_contains(None)
         grid_coords = square.get_grid_coords()
 
         # Use move values to find new location
-        new_coords = (grid_coords[0] + move_coords[0],
-                      grid_coords[1] + move_coords[1])
+        new_coords = (grid_coords[0] + move_distance[0],
+                      grid_coords[1] + move_distance[1])
         self.set_sprite(sprite, new_coords)
 
 # Use middle of square

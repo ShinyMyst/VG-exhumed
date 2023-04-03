@@ -17,11 +17,9 @@ class Unit(Button):
 
     def set_pos(self, pos):
         self.rect.x, self.rect.y = pos
-        print(pos)
 
     def set_spirit(self, spirit):
         self.spirit = spirit
 
-    def execute_turn(self):
-        """Performs turn."""
-        return self.spirit.get_effect()
+    def get_spirit(self):
+        return self.spirit
