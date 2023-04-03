@@ -198,3 +198,7 @@ class BattleLogic:
 
 # Use initialize objects for objects standard for all instances of class
  # Use another function to add additional sprites (for example the units)
+
+ # Should DATA hold the sprite groups instead?  Becaue they're everywhere
+ # Try that as refactor later.
+ 

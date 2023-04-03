@@ -1,11 +1,17 @@
-class CombatLogic:
+from _spirits import SpiritActions
+from _logic import _Logic
+
+class CombatLogic(_Logic):
     def __init__(self):
+        super().__init__()
         # SHARED
         self.buttons = None
         self.spirits = None
         self.units = None
         self.all_sprites = None
         self.grid = None
+
+        self.action = SpiritActions(self.grid)
 
         # SHARED
         self.events = {
@@ -59,21 +65,14 @@ class CombatLogic:
     #####################
     # Actions
     #####################
-    def _forward(self, unit):
-        self.grid.move_sprite(unit, [1, 0])
-
-    # Test float action next?
-    # Make actions their own class?
-
-
     def process_turn(self):
         """Performs spirit actions and enemy phase."""
         for unit in self.units:
             try:
                 spirit = unit.get_spirit()
-                actions = spirit.get_effects()
-                for action in actions:
-                    self.actions[action](unit)
+                effects = spirit.get_effects()
+                for effect in effects:
+                    self.action.execute(effect, unit)
             except: # noqa
                 pass
 
