@@ -201,4 +201,3 @@ class BattleLogic:
 
  # Should DATA hold the sprite groups instead?  Becaue they're everywhere
  # Try that as refactor later.
- 

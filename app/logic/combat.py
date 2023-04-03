@@ -4,35 +4,13 @@ from _logic import _Logic
 class CombatLogic(_Logic):
     def __init__(self):
         super().__init__()
-        # SHARED
-        self.buttons = None
-        self.spirits = None
-        self.units = None
-        self.all_sprites = None
-        self.grid = None
 
         self.action = SpiritActions(self.grid)
 
-        # SHARED
-        self.events = {
-            "click": self.click,
-            "release": self.release
-        }
 
         self.released_sprite = None
         self.active_sprite = None
 
-        self.actions = {
-            "forward": self._foward
-        }
-
-    # SHARED
-    def sync_sprites(self, buttons, spirits, units, all_sprites, grid):
-        self.buttons = buttons
-        self.spirits = spirits
-        self.units = units
-        self.all_sprites = all_sprites
-        self.grid = grid
 
     # SHARED
     def process_event(self, event_type):
