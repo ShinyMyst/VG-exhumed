@@ -44,7 +44,6 @@ class Control():
 
         self.swap_states()  # Determine if state needs changed
 
-
     #####################
     # Getters/Setters
     #####################

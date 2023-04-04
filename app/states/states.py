@@ -20,8 +20,6 @@ class _State:
         return self._bg
 
     def get_sprites(self):
-        for sprite in self.all_sprites:
-            print(sprite)
         return self.all_sprites
 
     def initialize_objects(self, sprite_input: list, grid_input=None):
@@ -60,10 +58,10 @@ class _State:
         self.buttons.add(button)
         self.all_sprites.add(button)
 
-    def _add_spirit(self, type, img_name, size, position, effect):
+    def _add_spirit(self, type, img_name, size, position, effect: list):
         spirit = Spirit(GFX[type][img_name], size)
         spirit.set_pos((position))
-        spirit.set_effect([effect])
+        spirit.set_effect(effect)
         self.spirits.add(spirit)
         self.all_sprites.add(spirit)
 

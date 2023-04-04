@@ -11,6 +11,9 @@ class _StaticObject(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.size_x, self.size_y = size
 
+        self.is_hovered = False
+        self.is_held = False
+
     #####################
     # Getters/Setters
     #####################

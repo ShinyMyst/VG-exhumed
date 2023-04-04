@@ -1,6 +1,7 @@
 from data import GFX
 from states.states import _State
-from spirits import turtle, bee
+from logic.combat import CombatLogic
+from spirits import turtle
 
 ###############
 # Define Sprites
@@ -62,22 +63,26 @@ class Battle(_State):
         super().__init__()
         self._bg = GFX['backgrounds']['floor']
 
-        self.logic = BattleLogic()
-
         self.function_dict = {
             "start": self.change_states,
-            "process_turn": self.logic.process_turn
+            "process_turn": self.next_turn
         }
+
         self.initialize_objects(sprite_input, grid_input)
-        self.logic.sync_sprites(self.buttons, self.spirits, self.units, self.all_sprites, self.grid)
+        self.logic = CombatLogic(self.grid)
+        self.logic.sync_sprites(self.buttons, self.spirits, self.units,
+                                self.all_sprites, self.grid)
 
         self.event = None
+
     #####################
     # Button Functions
     #####################
     def change_states(self):
         self.target_state = "start"
 
+    def next_turn(self):
+        self.logic.process_turn()
 
     #####################
     # Getters/Setters
@@ -89,7 +94,7 @@ class Battle(_State):
 
     def update(self, event):
         """Updates variables and calls necessary logic when event received"""
-        # Find which sprites are moving, which are hovered, and process event based on this info
+        # Find which sprites are moving, which are hovered, and process event.
         held_sprite = None
         hovered_sprite = None
         for sprite in self.all_sprites:
@@ -100,16 +105,9 @@ class Battle(_State):
 
         self.logic.update(event, hovered_sprite, held_sprite)
 
-        # Try to remove sprites from logic
-
-
-
-
+# Try to remove sprites from logic
 
 # TODO
-# Sprites should only hold info about what they hold and not execute logic
-# Grid should exist only to get grid cells and not logic in finding things
-
 # Spirit functions should be defined elsewhere
 # Each type of spirit should have its own class w/spirit as parent.
 # This removes need for setting effect
@@ -135,7 +133,13 @@ class Battle(_State):
 
 
 # Use initialize objects for objects standard for all instances of class
- # Use another function to add additional sprites (for example the units)
+# Use another function to add additional sprites (for example the units)
 
- # Should DATA hold the sprite groups instead?  Becaue they're everywhere
- # Try that as refactor later.
+# Should DATA hold the sprite groups instead?  Becaue they're everywhere
+# Try that as refactor later.
+
+# Update super state
+# Try to remove sprites from logic
+# Should events be executed in control or logic?
+# Consider making grids and sprite groups data varialbes
+# Catch out of bounds moves

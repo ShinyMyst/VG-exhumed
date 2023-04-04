@@ -1,51 +1,32 @@
-from _spirits import _SpiritActions
-from _logic import _Logic
+from logic._spirits import _SpiritActions
+from logic._logic import _Logic
 
 
 class CombatLogic(_Logic):
-    def __init__(self):
+    def __init__(self, grid):
         super().__init__()
-        self.spirit_action = _SpiritActions(self.grid)
-        self.released_sprite = None
-        self.active_sprite = None
+        self.spirit_action = _SpiritActions(grid)  # Find dif way to pass grid
 
-        self.hovered_sprite = None
-        self.held_sprite = None
-
-
-    # SHARED
-    def update(self, event_type, hovered_sprite, held_sprite):
-        """Performs specified action"""
-        self.hovered_sprite = hovered_sprite
-        self.held_sprite = held_sprite
-
-        event = self.events[event_type]
-        event()
-        execute_logic()
-        # Execute turn should be an entirely seperate function
-
-    def click(self, sprite):
-        """Pass click command to the sprite being hovered."""
-        self.hovered_sprite.click()
-
-    def release(self, sprite):
-        """Pass release command to the sprite being held."""
-        self.held_sprite.release()
-
-
+    #####################
+    # Subclass Logic
+    #####################
     def execute_logic(self):
         self.assign_spirit()
-        self.execute_player_turn()
 
-
-    def assign_sprit(self):
+    def assign_spirit(self):
         """Assigns a spirit to a unit."""
-        if self.hovered_sprite and self.released_sprite:
+        if self.hovered_sprite and self.held_sprite:
             if (self.hovered_sprite in self.units and
-                self.released_sprite in self.spirits):
-                self.hovered_sprite.set_spirit(self.released_sprite)
+                    self.held_sprite in self.spirits):
+                self.hovered_sprite.set_spirit(self.held_sprite)
     # This needs refactored.  Ideally use type instead of spritegroup also.
 
+    #####################
+    # Turn Logic
+    #####################
     def execute_player_turn(self):
         for unit in self.units:
             self.spirit_action.follow_spirit(unit)
+
+    def process_turn(self):
+        self.execute_player_turn()

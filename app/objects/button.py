@@ -8,7 +8,7 @@ class Button(_StaticObject):
         super().__init__(image, size)
         # Info
         self.active_color = (225, 250, 255, 100)
-        self._is_hovered = False
+        self.is_hovered = False
         self.function = None
 
         # Apperances
@@ -34,13 +34,13 @@ class Button(_StaticObject):
         """Determines is mouse is over sprite."""
         if self.rect.collidepoint(mouse_pos):
             pos_in_mask = mouse_pos[0] - self.rect.x, mouse_pos[1] - self.rect.y # noqa
-            self._is_hovered = True if self.mask.get_at(pos_in_mask) else False
+            self.is_hovered = True if self.mask.get_at(pos_in_mask) else False
         else:
-            self._is_hovered = False
+            self.is_hovered = False
 
     def _update_appearence(self):
         """Change appearnce if mouse is over sprite."""
-        if self._is_hovered:
+        if self.is_hovered:
             self.image = self.image_active
         else:
             self.image = self.image_base
@@ -55,5 +55,5 @@ class Button(_StaticObject):
 
     def click(self):
         """Perform function when clicked."""
-        if self._is_hovered and self.function:
+        if self.is_hovered and self.function:
             self.function()

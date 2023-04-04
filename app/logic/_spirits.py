@@ -6,7 +6,7 @@ class _SpiritActions():
     def __init__(self, grid):
         self.grid = grid
         self.actions = {
-            "forward": self._foward
+            "forward": self._forward
         }
 
     #####################
@@ -23,11 +23,13 @@ class _SpiritActions():
         """Given a specific unit and effect,
         executes action from that unit on the grid."""
         if effect:  # None is a possible action
-            self.actions[effect](unit)
+            action = self.actions[effect]
+            action(unit)
 
     def follow_spirit(self, unit):
         """Gives unit commands based on its assigned spirit."""
         spirit = unit.get_spirit()
-        effects = spirit.get_effects()
-        for effect in effects:
-            self.execute_effect(unit, effect)
+        if spirit:
+            effect = spirit.get_effect()
+            for action in effect:
+                self.execute_effect(unit, action)
