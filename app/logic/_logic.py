@@ -18,3 +18,8 @@ class _Logic(self):
         self.units = units
         self.all_sprites = all_sprites
         self.grid = grid
+
+
+    #####################
+    # Types of Events
+    #####################

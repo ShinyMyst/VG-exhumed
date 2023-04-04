@@ -27,19 +27,23 @@ class Control():
             self.update_gfx = True
 
     def event_loop(self):
+        """Tells state what actions were performed."""
+        # Update variables
         self.update_gfx = False
         mouse_pos = pg.mouse.get_pos()
         self.all_sprites.update(mouse_pos)
 
+        # Tell state which action we're performing
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit(); sys.exit()  # noqa
-            if event.type == pg.MOUSEBUTTONDOWN:
-                self.state.get_event("click")
-            if event.type == pg.MOUSEBUTTONUP:
-                self.state.get_event("release")
+            elif event.type == pg.MOUSEBUTTONDOWN:
+                self.state.update("click")
+            elif event.type == pg.MOUSEBUTTONUP:
+                self.state.update("release")
 
-            self.swap_states()
+        self.swap_states()  # Determine if state needs changed
+
 
     #####################
     # Getters/Setters
@@ -53,3 +57,5 @@ class Control():
         background = self.state.get_bg()
         sprites = self.state.get_sprites()
         return background, sprites
+
+# self.update_gfx necessary currently?

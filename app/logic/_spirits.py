@@ -1,7 +1,8 @@
 # Must be initialized within a logic class.
+# Must have a grid to reference.
 # Used to translate spirit effects into actions.
 
-class SpiritActions():
+class _SpiritActions():
     def __init__(self, grid):
         self.grid = grid
         self.actions = {
@@ -17,10 +18,16 @@ class SpiritActions():
     #####################
     # Shared Functions
     #####################
-    def get_action(self, action_str):
-        return self.actions[action_str]
 
-    def execute(self, action_str, unit):
-        """Given a specific unit and action,
+    def execute_effect(self, unit, effect):
+        """Given a specific unit and effect,
         executes action from that unit on the grid."""
-        self.actions[action_str](unit)
+        if effect:  # None is a possible action
+            self.actions[effect](unit)
+
+    def follow_spirit(self, unit):
+        """Gives unit commands based on its assigned spirit."""
+        spirit = unit.get_spirit()
+        effects = spirit.get_effects()
+        for effect in effects:
+            self.execute_effect(unit, effect)

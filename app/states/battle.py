@@ -71,6 +71,7 @@ class Battle(_State):
         self.initialize_objects(sprite_input, grid_input)
         self.logic.sync_sprites(self.buttons, self.spirits, self.units, self.all_sprites, self.grid)
 
+        self.event = None
     #####################
     # Button Functions
     #####################
@@ -81,92 +82,29 @@ class Battle(_State):
     #####################
     # Getters/Setters
     #####################
-    def get_event(self, event: str):
+    def receive_event(self, event: str):
         """Takes an event from control and processes through logic."""
-        self.logic.process_event(event)
+        self.event = event
+        # self.logic.process_event(event)
 
+    def update(self, event):
+        """Updates variables and calls necessary logic when event received"""
+        # Find which sprites are moving, which are hovered, and process event based on this info
+        held_sprite = None
+        hovered_sprite = None
+        for sprite in self.all_sprites:
+            if sprite.is_held:
+                held_sprite = sprite
+            if sprite.is_hovered:
+                hovered_sprite = sprite
 
-class BattleLogic:
-    def __init__(self):
-        self.buttons = None
-        self.spirits = None
-        self.units = None
-        self.all_sprites = None
-        self.grid = None
+        self.logic.update(event, hovered_sprite, held_sprite)
 
-        self.events = {
-            "click": self.click,
-            "release": self.release
-        }
-
-        self.released_sprite = None
-        self.active_sprite = None
-
-        self.actions = {
-            "forward": self._foward
-        }
+        # Try to remove sprites from logic
 
 
 
-    def sync_sprites(self, buttons, spirits, units, all_sprites, grid):
-        self.buttons = buttons
-        self.spirits = spirits
-        self.units = units
-        self.all_sprites = all_sprites
-        self.grid = grid
 
-    def process_event(self, event_type):
-        action = self.events[event_type]
-        action()
-        self.active()
-
-    def click(self):
-        """Pass click to all clickable sprites"""
-        for button in self.buttons:
-            button.click()
-        for spirits in self.spirits:
-            spirits.click()
-
-    def release(self):
-        """Pass release to all sprites with release function"""
-        for spirit in self.spirits:
-            if spirit.release():
-                self.released_sprite = spirit
-
-    def active(self):
-        if self.released_sprite:
-            for sprite in self.units:
-                if sprite._is_hovered:
-                    sprite.set_spirit(self.released_sprite)
-            self.released_sprite = None
-
-
-
-    #####################
-    # Actions
-    #####################
-    def _forward(self, unit):
-        self.grid.move_sprite(unit, [1, 0])
-
-    # Test float action next?
-    # Make actions their own class?
-
-
-    def process_turn(self):
-        """Performs spirit actions and enemy phase."""
-        for unit in self.units:
-            try:
-                spirit = unit.get_spirit()
-                actions = spirit.get_effects()
-                for action in actions:
-                    self.actions[action](unit)
-            except: # noqa
-                pass
-
-    def sprite_released(self, released_sprite):
-        # If sprite is hovered when unit released, set spirit
-        if self.active_sprite:
-            self.active_sprite.set_spirit(released_sprite)
 
 # TODO
 # Sprites should only hold info about what they hold and not execute logic

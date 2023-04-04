@@ -1,60 +1,51 @@
-from _spirits import SpiritActions
+from _spirits import _SpiritActions
 from _logic import _Logic
+
 
 class CombatLogic(_Logic):
     def __init__(self):
         super().__init__()
-
-        self.action = SpiritActions(self.grid)
-
-
+        self.spirit_action = _SpiritActions(self.grid)
         self.released_sprite = None
         self.active_sprite = None
 
+        self.hovered_sprite = None
+        self.held_sprite = None
+
 
     # SHARED
-    def process_event(self, event_type):
-        action = self.events[event_type]
-        action()
-        self.active()
+    def update(self, event_type, hovered_sprite, held_sprite):
+        """Performs specified action"""
+        self.hovered_sprite = hovered_sprite
+        self.held_sprite = held_sprite
 
-    def click(self):
-        """Pass click to all clickable sprites"""
-        for button in self.buttons:
-            button.click()
-        for spirits in self.spirits:
-            spirits.click()
+        event = self.events[event_type]
+        event()
+        execute_logic()
+        # Execute turn should be an entirely seperate function
 
-    def release(self):
-        """Pass release to all sprites with release function"""
-        for spirit in self.spirits:
-            if spirit.release():
-                self.released_sprite = spirit
+    def click(self, sprite):
+        """Pass click command to the sprite being hovered."""
+        self.hovered_sprite.click()
 
-    def active(self):
-        if self.released_sprite:
-            for sprite in self.units:
-                if sprite._is_hovered:
-                    sprite.set_spirit(self.released_sprite)
-            self.released_sprite = None
+    def release(self, sprite):
+        """Pass release command to the sprite being held."""
+        self.held_sprite.release()
 
 
+    def execute_logic(self):
+        self.assign_spirit()
+        self.execute_player_turn()
 
-    #####################
-    # Actions
-    #####################
-    def process_turn(self):
-        """Performs spirit actions and enemy phase."""
+
+    def assign_sprit(self):
+        """Assigns a spirit to a unit."""
+        if self.hovered_sprite and self.released_sprite:
+            if (self.hovered_sprite in self.units and
+                self.released_sprite in self.spirits):
+                self.hovered_sprite.set_spirit(self.released_sprite)
+    # This needs refactored.  Ideally use type instead of spritegroup also.
+
+    def execute_player_turn(self):
         for unit in self.units:
-            try:
-                spirit = unit.get_spirit()
-                effects = spirit.get_effects()
-                for effect in effects:
-                    self.action.execute(effect, unit)
-            except: # noqa
-                pass
-
-    def sprite_released(self, released_sprite):
-        # If sprite is hovered when unit released, set spirit
-        if self.active_sprite:
-            self.active_sprite.set_spirit(released_sprite)
+            self.spirit_action.follow_spirit(unit)
