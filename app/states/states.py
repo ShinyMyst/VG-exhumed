@@ -16,12 +16,23 @@ class _State:
         self.units = pg.sprite.Group()
         self.all_sprites = pg.sprite.RenderUpdates()
 
+        # Initialization
+        # (can't use in template until logic and sprites are parameters)
+        # self.initialize_objects
+        # self.initialize_logic
+
+    #####################
+    # Getters/Setters
+    #####################
     def get_bg(self):
         return self._bg
 
     def get_sprites(self):
         return self.all_sprites
 
+    #####################
+    # Initialization
+    #####################
     def initialize_objects(self, sprite_input: list, grid_input=None):
         """Resets objects associated with state then sets them to the inputs.
         Used when same state may have different appearences.
@@ -40,6 +51,12 @@ class _State:
                 self._add_spirit(**sprite)
             if sprite['type'] == 'units':
                 self._add_unit_grid(**sprite)
+
+    def initialize_logic(self, logic):
+        """Call after objects initialized to pass to logic."""
+        self.logic = logic
+        self.logic.sync_sprites(self.buttons, self.spirits, self.units,
+                                self.all_sprites, self.grid)
 
     #####################
     # Add Sprites/Grids
@@ -70,3 +87,20 @@ class _State:
         self.grid.set_sprite(unit, position)
         self.units.add(unit)
         self.all_sprites.add(unit)
+
+    #####################
+    # Event Processing
+    #####################
+    def update(self, event):
+        """Updates variables and calls necessary logic when event received"""
+        # Find which sprites are moving, which are hovered, and process event.
+        # Take position from control and do update here instead of in control.
+        held_sprite = None
+        hovered_sprite = None
+        for sprite in self.all_sprites:
+            if sprite.is_held:
+                held_sprite = sprite
+            if sprite.is_hovered:
+                hovered_sprite = sprite
+
+        self.logic.update(event, hovered_sprite, held_sprite)

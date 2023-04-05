@@ -73,38 +73,15 @@ class Battle(_State):
         self.logic.sync_sprites(self.buttons, self.spirits, self.units,
                                 self.all_sprites, self.grid)
 
-        self.event = None
-
     #####################
     # Button Functions
     #####################
     def change_states(self):
+        print("CHANGE STATE")
         self.target_state = "start"
 
     def next_turn(self):
         self.logic.process_turn()
-
-    #####################
-    # Getters/Setters
-    #####################
-    def receive_event(self, event: str):
-        """Takes an event from control and processes through logic."""
-        self.event = event
-        # self.logic.process_event(event)
-
-    def update(self, event):
-        """Updates variables and calls necessary logic when event received"""
-        # Find which sprites are moving, which are hovered, and process event.
-        # Take position from control and do update here instead of in control.
-        held_sprite = None
-        hovered_sprite = None
-        for sprite in self.all_sprites:
-            if sprite.is_held:
-                held_sprite = sprite
-            if sprite.is_hovered:
-                hovered_sprite = sprite
-
-        self.logic.update(event, hovered_sprite, held_sprite)
 
 # Try to remove sprites from logic
 
@@ -145,3 +122,14 @@ class Battle(_State):
 # Perhaps have state iterate through all units for logic somehow
 # Consider making grids and sprite groups data varialbes
 # Catch out of bounds moves
+# State more or less is just the gate keeper for which logic to use
+# State also stores the sprite info... for now.
+# Logic is more or less an offshoot of state.  It's still
+# technically state functionality, just seperated for readability.
+# State holds sprites and it holds logic
+
+# Put initialization arguments in class defintion.  So that groups are passed
+# when initialized autoamatically.
+
+# Different way to pass objects to logic
+# Create a default logic class?

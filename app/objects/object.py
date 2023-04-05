@@ -65,7 +65,7 @@ class _FluidObject(_StaticObject):
         self.active_color = color
 
     #####################
-    # Button Functions
+    # Visual Functions
     #####################
     def _check_collision(self, mouse_pos):
         """Determines is mouse is over sprite."""
