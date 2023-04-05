@@ -95,6 +95,7 @@ class Battle(_State):
     def update(self, event):
         """Updates variables and calls necessary logic when event received"""
         # Find which sprites are moving, which are hovered, and process event.
+        # Take position from control and do update here instead of in control.
         held_sprite = None
         hovered_sprite = None
         for sprite in self.all_sprites:
@@ -140,6 +141,7 @@ class Battle(_State):
 
 # Update super state
 # Try to remove sprites from logic
-# Should events be executed in control or logic?
+# Main issue with this is iterating through all units w/o list
+# Perhaps have state iterate through all units for logic somehow
 # Consider making grids and sprite groups data varialbes
 # Catch out of bounds moves
